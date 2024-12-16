@@ -1,0 +1,3 @@
+{$caddydomain} {
+  reverse_proxy humhub:8404
+}

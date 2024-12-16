@@ -1,0 +1,5 @@
+.env
+humhub.env
+humhub-data
+caddy-data
+mysql-data

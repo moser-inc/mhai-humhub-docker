@@ -1,0 +1,29 @@
+name: Docker Image CI
+on:
+  push:
+     tags:
+        - '*'
+  workflow_dispatch:
+  schedule:
+    - cron: "33 3 * * *"
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        branch: [develop, next]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker login
+      env:
+        DOCKER_USER: ${{secrets.DOCKER_USER}}
+        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+    - name: Build the Docker image
+      run: cd image; docker build . --file Dockerfile --build-arg BRANCH=${{ matrix.branch }} --tag humhub/humhub-dev:${{ matrix.branch }}
+
+    - name: Docker Push
+      run: docker push humhub/humhub-dev:${{ matrix.branch }}
