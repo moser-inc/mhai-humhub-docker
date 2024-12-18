@@ -1,3 +1,5 @@
 {$caddydomain} {
-  reverse_proxy humhub:8404
+  reverse_proxy humhub:8404 {
+    header_up X-Forwarded-Port 443
+  }
 }
