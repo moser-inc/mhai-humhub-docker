@@ -86,6 +86,7 @@ RUN cp /opt/humhub/protected/yii /var/www/html/protected/ && \
    
 COPY ["files/humhub-queue-listen.sh", "files/humhub-cron.sh", "files/humhub-startup.sh", "files/docker-entrypoint.sh", "/"]
 RUN chmod +x /humhub-queue-listen.sh && \
+    chmod +x /humhub-cron.sh && \
     chmod +x /humhub-startup.sh && \
     chmod +x /docker-entrypoint.sh && \
     mkdir -p /var/log/supervisord && \
