@@ -49,6 +49,10 @@ docker compose up -d
 
 > Also check for new configuration options in `.env.dist` and `humhub.env.dist` files.
 
+### Migration
+
+If you want to migrate from a Non-Docker setup to this Docker image, you can find step-by-step guide in the [MIGRATE.md](MIGRATE.md) file. 
+
 ## Other Setup Options
 
 ### HumHub CLI 
