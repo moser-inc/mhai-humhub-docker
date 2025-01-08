@@ -99,3 +99,56 @@ If an NGINX web server is already running on the host on which the Docker contai
 **Apache2 Example:** 
 
 TBD
+
+### Without Bundled MariaDB Server
+
+You can also use the Docker Compose setup without the integrated MariaDB server, for example to use an existing cluster
+or locally installed MariaDB server.
+
+First set the `HUMHUB_DOCKER_DB_*` variables in the `.env` file.
+
+- `HUMHUB_DOCKER_DB_DSN` - The database connection string.
+- `HUMHUB_DOCKER_DB_USER` - The database user.
+- `HUMHUB_DOCKER_DB_PASSWORD` - The database password.
+
+e.g.
+
+```env
+HUMHUB_DOCKER_DB_DSN="mysql:host=host.docker.internal;dbname=humhub_master"
+HUMHUB_DOCKER_DB_USER="humhub-user"
+HUMHUB_DOCKER_DB_PASSWORD="humhub-user-password"
+```
+
+To start the Docker container without the MariaDB server, run:
+
+```bash
+docker compose -f compose-without-db.yaml up -d
+``` 
+
+Note: The helper script `helper.sh` database commands are not available in this case.
+
+### Docker Standalone
+
+You can also run the Docker image standalone without Docker Compose and all dependencies. 
+A MariaDB database server is required.
+
+For this setup, you don't need to clone this Git repository, but may want to copy the `yii.sh` helper script.
+
+Example command:
+
+```bash
+sudo docker run -d \
+    --net=host \
+    -v ./humhub-data-docker:/var/lib/humhub \
+    -e HUMHUB_DEBUG=true \
+    -e HUMHUB_CONFIG__COMPONENTS__DB__DSN="mysql:host=127.0.0.1;dbname=---your-db-name---" \
+    -e HUMHUB_CONFIG__COMPONENTS__DB__USERNAME="---your-db-user---" \
+    -e HUMHUB_CONFIG__COMPONENTS__DB__PASSWORD="---your-db-password---" \
+    -e HUMHUB_FIXED_SETTINGS__BASE__BASE_URL="http://localhost:8404" \
+    humhub/humhub-dev:develop
+```
+
+After starting, HumHub can be accessed at the URL http://localhost:8404.
+
+A reverse proxy is recommended for this setup. In this case, the ENV variable `HUMHUB_FIXED_SETTINGS__BASE__BASE_URL` 
+must be set to the correct host name. See section **Existing Reverse Proxy** for more details.

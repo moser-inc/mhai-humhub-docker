@@ -1,5 +1,7 @@
+.idea/*
 .env
 humhub.env
 humhub-data
+humhub-data-docker
 caddy-data
 mysql-data
