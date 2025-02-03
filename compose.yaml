@@ -2,7 +2,7 @@ services:
   humhub:
     image: humhub/humhub-dev:${HUMHUB_DOCKER_VERSION}
     ports:
-      - 8404:8404
+      - 127.0.0.1:8404:8404
     depends_on:
       db:
         condition: service_healthy
@@ -30,7 +30,7 @@ services:
     environment:
         - MYSQL_ROOT_PASSWORD=${HUMHUB_DOCKER_DB_PASSWORD}
     expose:
-      - 3306
+      - 127.0.0.1:3306:3306
     healthcheck:
       test:  ["CMD", "/usr/local/bin/healthcheck.sh", "--su-mysql", "--connect",  "--innodb_initialized"]
       interval: 10s
@@ -50,7 +50,7 @@ services:
   redis:
     image: redis:6.2-alpine
     ports:
-      - 6379:6379    
+      - 127.0.0.1:6379:6379
     restart: always
     command: redis-server --save 20 1 --loglevel warning
     volumes: 

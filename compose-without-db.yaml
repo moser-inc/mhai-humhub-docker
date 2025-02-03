@@ -2,7 +2,7 @@ services:
   humhub:
     image: humhub/humhub-dev:${HUMHUB_DOCKER_VERSION}
     ports:
-      - 8404:8404
+      - 127.0.0.1:8404:8404
     volumes:
       - ./humhub-data:/var/lib/humhub
     env_file:
@@ -38,7 +38,7 @@ services:
   redis:
     image: redis:6.2-alpine
     ports:
-      - 6379:6379    
+      - 127.0.0.1:6379:6379
     network_mode: "host"
     restart: always
     command: redis-server --save 20 1 --loglevel warning
