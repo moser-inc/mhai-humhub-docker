@@ -22,6 +22,21 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
+  db:
+    image: mariadb:11.7.2
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-mariadb}
+      DB_HOST: ${DB_HOST:-db}
+      DB_USER: ${DB_USER:-humhub}
+      DB_PASS: ${DB_PASS:-humhub_password}
+      DB_NAME: ${DB_NAME:-humhub_development}
+    ports:
+      - '3307:3306'
+    restart: always
+    volumes:
+      - mysqldata:/var/lib/mysql
+      - ./:/host
+
 #  Not running with caddy right now - planning on using NGINX with certbot as reverse proxy
 #  caddy:
 #    image: caddy:latest
