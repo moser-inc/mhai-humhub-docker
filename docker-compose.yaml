@@ -34,7 +34,7 @@ services:
       - '3307:3306'
     restart: always
     volumes:
-      - mysqldata:/var/lib/mysql
+      - mariadbdata:/var/lib/mysql
       - ./:/host
 
 #  Not running with caddy right now - planning on using NGINX with certbot as reverse proxy
@@ -67,3 +67,4 @@ volumes:
   cache:
     driver: local
   humhub_mw_data:
+  mariadbdata:
