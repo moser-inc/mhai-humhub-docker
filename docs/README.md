@@ -1,4 +1,6 @@
-# HumHub - Docker Image (Development Version)
+# HumHub - MHAI Docker Setup
+
+A modification of the [humhub/docker-dev](https://github.com/humhub/docker-dev) repo for hosting MHAI member websites.
 
 The Docker package provides all the essential components for setting up your HumHub installation.
 
