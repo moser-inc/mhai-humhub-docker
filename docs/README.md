@@ -7,9 +7,11 @@ The Docker package provides all the essential components for setting up your Hum
 ## Running on production (MHAI)
 
 ```
-Go to the folder where the application is running - `/var/www/mhai-humhub-docker`
+Go to the folder where the application is running, pull the latest from the repo, restart
 
-`docker compose up -d`
+cd /var/www/mhai-humhub-docker
+git pull
+docker compose up -d
 ```
 
 

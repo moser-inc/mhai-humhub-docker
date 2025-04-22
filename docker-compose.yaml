@@ -13,6 +13,9 @@ services:
       context: ./image
     image: moser-inc/humhub-mhai:${HUMHUB_DOCKER_VERSION}
 #    image: humhub/humhub-dev:${HUMHUB_DOCKER_VERSION}
+    depends_on:
+      - db
+      - redis
     ports:
       - 8404:8404
     volumes:
