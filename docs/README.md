@@ -4,6 +4,15 @@ A modification of the [humhub/docker-dev](https://github.com/humhub/docker-dev) 
 
 The Docker package provides all the essential components for setting up your HumHub installation.
 
+## Running on production (MHAI)
+
+```
+Go to the folder where the application is running - `/var/www/mhai-humhub-docker`
+
+`docker compose up -d`
+```
+
+
 ## Features
 
 - HumHub Core Software (Apache2 + FPM)

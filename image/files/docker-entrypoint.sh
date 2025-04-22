@@ -24,6 +24,17 @@ cd /var/www/html/
 su www-data -s /bin/bash -c '/humhub-startup.sh'
 
 #----------------------------------------------------------------------
+# BUILD & compile THEMES
+#----------------------------------------------------------------------
+
+echo "Installing MHAI theme..."
+if [ ! -f /var/lib/humhub/themes/MHAI/css/theme.css ]; then
+  echo "MHAI theme not detected, rebuilding"
+  rm -rf /var/lib/humhub/themes/MHAI && cp -rf /opt/humhub/themes/MHAI /var/lib/humhub/themes/MHAI
+  lessc --clean-css /var/www/html/themes/MHAI/less/build.less /var/www/html/themes/MHAI/css/theme.css
+fi
+
+#----------------------------------------------------------------------
 # STARTUP
 #----------------------------------------------------------------------
 

@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM debian:bookworm AS base
 
 ARG HUMHUB_GIT_BRANCH="develop"
 
@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
     apache2 \
     php-fpm php php-cli \
 	php-imagick php-curl php-bz2 php-gd php-intl php-mbstring php-mysql php-zip php-apcu php-xml php-ldap \
-    unzip curl zip joe git npm \
+    unzip curl zip joe git npm vim \
     supervisor
     
 #------------------------------------------------------------------------------------------------
@@ -81,6 +81,12 @@ RUN git clone https://github.com/humhub/humhub.git /opt/humhub && \
 # We cannot symlink these entry scripts atm, since the DynamicConfig is otherwise loaded from /opt/humhub
 RUN cp /opt/humhub/protected/yii /var/www/html/protected/ && \
     cp /opt/humhub/index.php /var/www/html/index.php
+
+#------------------------------------------------------------------------------------------------
+# Install custom MHAI themes for Moser Consulting
+#------------------------------------------------------------------------------------------------
+
+COPY ./themes /opt/humhub/themes
 
 #------------------------------------------------------------------------------------------------
    
