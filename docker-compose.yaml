@@ -9,10 +9,7 @@ x-common-env: &common-env
 
 services:
   humhub_mw:
-    build:
-      context: ./image
-    image: moser-inc/humhub-mhai:${HUMHUB_DOCKER_VERSION}
-#    image: humhub/humhub-dev:${HUMHUB_DOCKER_VERSION}
+    image: 216989108086.dkr.ecr.us-east-2.amazonaws.com/moser-inc/mhai-humhub:latest
     depends_on:
       - db
       - redis
@@ -32,7 +29,10 @@ services:
   humhub_development:
     build:
       context: ./image
-    image: moser-inc/humhub-mhai:${HUMHUB_DOCKER_VERSION}
+      tags:
+        - 216989108086.dkr.ecr.us-east-2.amazonaws.com/moser-inc/mhai-humhub:${HUMHUB_DOCKER_VERSION}-${MHAI_DOCKER_IMAGE_VERSION}
+        - 216989108086.dkr.ecr.us-east-2.amazonaws.com/moser-inc/mhai-humhub:latest
+    image: moser-inc/mhai-humhub:latest
     ports:
       - 8804:8404
     volumes:
