@@ -14,6 +14,12 @@ git pull
 docker compose up -d
 ```
 
+## Backups
+
+The backup script for the database is `db/backup.sh`. Should be set to run daily on production server by crontab.
+
+------------------------------------------------------------------------------------------------------------------------
+
 
 ## Features
 
