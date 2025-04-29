@@ -13,6 +13,7 @@ DB_NAMES=("humhub_mw_production")
 for DB_NAME in "${DB_NAMES[@]}"; do
 
   OUT_PATH="${BACKUPS_DIR}/${DB_NAME}-${DATE}.sql.gz"
+  echo "Beginning backup for ${OUT_PATH}"
   docker compose exec db mariadb-dump --defaults-extra-file=/host/db/db_creds.cnf ${DB_NAME} | gzip -c > $OUT_PATH
 
   ls -tp ${BACKUPS_DIR}/${DB_NAME}*.sql.gz | grep -v '/$' | tail -n +6 | xargs -I {} rm -- {}
