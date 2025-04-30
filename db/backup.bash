@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKUPS_DIR="$SCRIPT_DIR/../backups"
 
 DATE=$(date +"%Y-%m-%d-%H%M%S")
-ENV_NAME="development"
+ENV_NAME="production"
 
 INSTANCE_NAMES=("humhub_mw")
 
