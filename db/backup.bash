@@ -6,7 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Construct the path to ../backups relative to the script location
 BACKUPS_DIR="$SCRIPT_DIR/../backups"
 
-DATE=$(date +"%Y-%m-%d-%H%M%S")
+DATE=$(date +"%Y-%m-%d-%H%M%S-%Z")
 ENV_NAME="production"
 
 INSTANCE_NAMES=("humhub_mw")
