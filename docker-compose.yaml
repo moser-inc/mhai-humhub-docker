@@ -109,4 +109,5 @@ volumes:
   cache:
     driver: local
   humhub_mw_data:
+  humhub_irn_data:
   mariadbdata:
