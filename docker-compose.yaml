@@ -41,6 +41,7 @@ services:
       HUMHUB_CONFIG__COMPONENTS__DB__DSN: ${HUMHUB_IRN_DSN}
       HUMHUB_FIXED_SETTINGS__BASE__BASE_URL: https://${HUMHUB_IRN_DOMAIN}
       HUMHUB_CONFIG__COMPONENTS__REDIS__DATABASE: 1
+      HUMHUB_CONFIG__COMPONENTS__CACHE__KEYPREFIX: humhub_irn_
       <<: *common-env
     restart: always
 
