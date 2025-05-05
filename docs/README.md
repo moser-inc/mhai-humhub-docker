@@ -4,6 +4,8 @@ A modification of the [humhub/docker-dev](https://github.com/humhub/docker-dev) 
 
 The Docker package provides all the essential components for setting up your HumHub installation.
 
+See the [MHAI.md](./MHAI.md) file for more details on setup.
+
 ## Running on production (MHAI)
 
 ```
