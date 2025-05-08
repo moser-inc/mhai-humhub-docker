@@ -44,25 +44,23 @@ services:
       <<: *common-env
     restart: always
 
-  humhub_development:
-    build:
-      context: ./image
-      tags:
-        - 216989108086.dkr.ecr.us-east-2.amazonaws.com/moser-inc/mhai-humhub:${HUMHUB_DOCKER_VERSION}-${MHAI_DOCKER_IMAGE_VERSION}
-        - 216989108086.dkr.ecr.us-east-2.amazonaws.com/moser-inc/mhai-humhub:latest
+  humhub_ican:
     image: moser-inc/mhai-humhub:latest
+    depends_on:
+      - db
+      - redis
     ports:
-      - 8804:8404
+      - 8406:8404
     volumes:
-      - ./:/host
-      - ./humhub-data:/var/lib/humhub
+      - humhub_ican_data:/var/lib/humhub
     env_file:
       - ./humhub.env
     environment:
-      HUMHUB_CONFIG__COMPONENTS__DB__DSN: ${HUMHUB_MW_DSN}
-      HUMHUB_FIXED_SETTINGS__BASE__BASE_URL: https://${HUMHUB_MW_DOMAIN}
-      HUMHUB_CONFIG__COMPONENTS__REDIS__DATABASE: 0
+      HUMHUB_CONFIG__COMPONENTS__DB__DSN: ${HUMHUB_ICAN_DSN}
+      HUMHUB_FIXED_SETTINGS__BASE__BASE_URL: https://${HUMHUB_ICAN_DOMAIN}
+      HUMHUB_CONFIG__COMPONENTS__REDIS__DATABASE: 2
       <<: *common-env
+    restart: always
 
   db:
     image: mariadb:11.7.2
@@ -110,4 +108,5 @@ volumes:
     driver: local
   humhub_mw_data:
   humhub_irn_data:
+  humhub_ican_data:
   mariadbdata:

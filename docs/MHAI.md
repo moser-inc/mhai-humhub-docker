@@ -36,6 +36,18 @@ docker compose run db sh -c 'cat /tmp/humhub_mhai_new_site_template_db.sql | mar
 
 10. The site should be able to run with `docker compose up -d <service_name>`
 
+# To run development
+
+```
+docker compose -f docker-compose.yaml -f docker-compose.development.yaml up humhub_development 
+```
+
+# To run production
+
+```
+docker compose up -d 
+```
+
 # Appendix
 
 Change production password:
