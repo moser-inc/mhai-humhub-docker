@@ -83,10 +83,11 @@ RUN cp /opt/humhub/protected/yii /var/www/html/protected/ && \
     cp /opt/humhub/index.php /var/www/html/index.php
 
 #------------------------------------------------------------------------------------------------
-# Install custom MHAI themes for Moser Consulting
+# Install custom MHAI themes and initial setup files for Moser Consulting
 #------------------------------------------------------------------------------------------------
 
 COPY ./themes /opt/humhub/themes
+COPY ./production-initial-setup /opt/humhub/production-initial-setup
 
 #------------------------------------------------------------------------------------------------
    

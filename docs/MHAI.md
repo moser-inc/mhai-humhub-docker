@@ -15,10 +15,11 @@ GRANT ALL PRIVILEGES ON \`$DB_NAME\`.* TO '$DB_USER'@'%';
 # Flush privileges to apply changes
 FLUSH PRIVILEGES;
 ``` 
-6. Copy the base Humhub template files into the instance:
+6. Unzip the base Humhub template files inside of the instance. ⚠️ This will populate the volume. Make sure you set the 
+   volume name uniquely for this instance or you might overwrite files from another instance. The -n flag is included 
+   in this example to help in case you still make that error. ⚠️   
 ```
-docker compose cp /home/deploy/humhub_mhai_new_site_template_files.zip <service_name>:/tmp/humhub_mhai_new_site_template_files.zip
-docker compose run <service_name> unzip -n /tmp/humhub_mhai_new_site_template_files.zip -d /
+docker compose run <service_name> unzip -n /opt/humhub/production-initial-setup/humhub_mhai_new_site_template_files.zip -d /
 ```
 
 7. Put the appropriate configurations in the file `/var/lib/humhub/config/dynamic.php`
@@ -28,8 +29,7 @@ docker compose run <service_name> vim /var/lib/humhub/config/dynamic.php
  
 8. Load the template database found on the home directory (/home/deploy/humhub_mhai_new_site_template_db.sql)
 ```
-docker compose cp /home/deploy/humhub_mhai_new_site_template_db.sql db:/tmp/humhub_mhai_new_site_template_db.sql
-docker compose run db sh -c 'cat /tmp/humhub_mhai_new_site_template_db.sql | mariadb -u humhub -p <database_name>'
+docker compose run db sh -c 'cat /host/image/production-initial-setup/humhub_mhai_new_site_template_db.sql | mariadb -u humhub -p <database_name>'
 ```
 
 9. Make sure the NGINX configuration is set up correctly for reverse proxy.
