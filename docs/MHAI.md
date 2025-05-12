@@ -24,12 +24,18 @@ docker compose run <service_name> unzip -n /opt/humhub/production-initial-setup/
 
 7. Put the appropriate configurations in the file `/var/lib/humhub/config/dynamic.php`
 ```
-docker compose run <service_name> vim /var/lib/humhub/config/dynamic.php
+docker compose run <service_name> bash
+vim /var/lib/humhub/config/dynamic.php
+   <insert text>
+exit
 ```
+* I found that running vim directly from the command line using docker composes messes up the terminal input for
+  subsequent commands.
  
 8. Load the template database found on the home directory (/home/deploy/humhub_mhai_new_site_template_db.sql)
 ```
-docker compose run db sh -c 'cat /host/image/production-initial-setup/humhub_mhai_new_site_template_db.sql | mariadb -u humhub -p <database_name>'
+docker compose cp /home/deploy/humhub_mhai_new_site_template_db.sql db:/tmp/humhub_mhai_new_site_template_db.sql
+docker compose exec db sh -c 'cat /tmp/humhub_mhai_new_site_template_db.sql | mariadb -u humhub -p <database_name>'
 ```
 
 9. Make sure the NGINX configuration is set up correctly for reverse proxy.

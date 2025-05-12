@@ -8,23 +8,23 @@ x-common-env: &common-env
   HUMHUB_CONFIG__COMPONENTS__SESSION__CLASS: yii\redis\Session
 
 services:
-  humhub_development:
-    build:
-      context: ./image
-      tags:
-        - 216989108086.dkr.ecr.us-east-2.amazonaws.com/moser-inc/mhai-humhub:${HUMHUB_DOCKER_VERSION}-${MHAI_DOCKER_IMAGE_VERSION}
-        - 216989108086.dkr.ecr.us-east-2.amazonaws.com/moser-inc/mhai-humhub:latest
-    image: moser-inc/mhai-humhub:latest
-    ports:
-      - 8804:8404
+  humhub_mw:
+#    build:
+#      context: ./image
+#      tags:
+#        - 216989108086.dkr.ecr.us-east-2.amazonaws.com/moser-inc/mhai-humhub:${HUMHUB_DOCKER_VERSION}-${MHAI_DOCKER_IMAGE_VERSION}
+#        - 216989108086.dkr.ecr.us-east-2.amazonaws.com/moser-inc/mhai-humhub:latest
+#    image: moser-inc/mhai-humhub:latest
+#    ports:
+#      - 8804:8404
     volumes:
       - ./:/host
       - ./humhub-data:/var/lib/humhub
-    env_file:
-      - ./humhub.env
-    environment:
-      HUMHUB_CONFIG__COMPONENTS__DB__DSN: ${HUMHUB_MW_DSN}
-      HUMHUB_FIXED_SETTINGS__BASE__BASE_URL: https://${HUMHUB_MW_DOMAIN}
-      HUMHUB_CONFIG__COMPONENTS__REDIS__DATABASE: 0
-      <<: *common-env
+#    env_file:
+#      - ./humhub.env
+#    environment:
+#      HUMHUB_CONFIG__COMPONENTS__DB__DSN: ${HUMHUB_MW_DSN}
+#      HUMHUB_FIXED_SETTINGS__BASE__BASE_URL: https://${HUMHUB_MW_DOMAIN}
+#      HUMHUB_CONFIG__COMPONENTS__REDIS__DATABASE: 0
+#      <<: *common-env
 
