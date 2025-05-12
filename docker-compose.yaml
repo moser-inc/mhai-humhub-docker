@@ -135,4 +135,5 @@ volumes:
   humhub_mw_data:
   humhub_irn_data:
   humhub_ican_data:
+  humhub_ispn_data:
   mariadbdata:
