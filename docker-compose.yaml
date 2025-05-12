@@ -88,6 +88,60 @@ services:
       <<: *common-env
     restart: always
 
+  humhub_icaada:
+    image: moser-inc/mhai-humhub:latest
+    depends_on:
+      - db
+      - redis
+    ports:
+      - 8408:8404
+    volumes:
+      - humhub_icaada_data:/var/lib/humhub
+    env_file:
+      - ./humhub.env
+    environment:
+      HUMHUB_CONFIG__COMPONENTS__DB__DSN: ${HUMHUB_ICAADA_DSN}
+      HUMHUB_FIXED_SETTINGS__BASE__BASE_URL: https://${HUMHUB_ICAADA_DOMAIN}
+      HUMHUB_CONFIG__COMPONENTS__REDIS__DATABASE: 4
+      <<: *common-env
+    restart: always
+
+  humhub_infancyonward:
+    image: moser-inc/mhai-humhub:latest
+    depends_on:
+      - db
+      - redis
+    ports:
+      - 8409:8404
+    volumes:
+      - humhub_infancyonward_data:/var/lib/humhub
+    env_file:
+      - ./humhub.env
+    environment:
+      HUMHUB_CONFIG__COMPONENTS__DB__DSN: ${HUMHUB_INFANCYONWARD_DSN}
+      HUMHUB_FIXED_SETTINGS__BASE__BASE_URL: https://${HUMHUB_INFANCYONWARD_DOMAIN}
+      HUMHUB_CONFIG__COMPONENTS__REDIS__DATABASE: 5
+      <<: *common-env
+    restart: always
+
+  humhub_infancyonward:
+    image: moser-inc/mhai-humhub:latest
+    depends_on:
+      - db
+      - redis
+    ports:
+      - 8410:8404
+    volumes:
+      - humhub_inalliancepse_data:/var/lib/humhub
+    env_file:
+      - ./humhub.env
+    environment:
+      HUMHUB_CONFIG__COMPONENTS__DB__DSN: ${HUMHUB_INALLIANCEPSE_DSN}
+      HUMHUB_FIXED_SETTINGS__BASE__BASE_URL: https://${HUMHUB_INALLIANCEPSE_DOMAIN}
+      HUMHUB_CONFIG__COMPONENTS__REDIS__DATABASE: 6
+      <<: *common-env
+    restart: always
+
   db:
     image: mariadb:11.7.2
     environment:
@@ -136,4 +190,7 @@ volumes:
   humhub_irn_data:
   humhub_ican_data:
   humhub_ispn_data:
+  humhub_icaada_data:
+  humhub_infancyonward_data:
+  humhub_inalliancepse_data:
   mariadbdata:
