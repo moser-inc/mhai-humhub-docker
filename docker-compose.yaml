@@ -124,7 +124,7 @@ services:
       <<: *common-env
     restart: always
 
-  humhub_infancyonward:
+  humhub_alliancepse:
     image: moser-inc/mhai-humhub:latest
     depends_on:
       - db
