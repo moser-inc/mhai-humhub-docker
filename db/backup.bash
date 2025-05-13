@@ -9,7 +9,7 @@ BACKUPS_DIR="$SCRIPT_DIR/../backups"
 DATE=$(date +"%Y-%m-%d-%H%M%S-%Z")
 ENV_NAME="production"
 
-INSTANCE_NAMES=("humhub_mw" "humhub_irn")
+INSTANCE_NAMES=("humhub_mw" "humhub_irn" "humhub_ican" "humhub_ispn" "humhub_icaada" "humhub_infancyonward" "humhub_inalliancepse")
 
 for INSTANCE_NAME in "${INSTANCE_NAMES[@]}"; do
   DB_NAME="${INSTANCE_NAME}_${ENV_NAME}"
@@ -17,16 +17,17 @@ for INSTANCE_NAME in "${INSTANCE_NAMES[@]}"; do
   DB_OUT_PATH="${BACKUPS_DIR}/${DB_NAME}-${DATE}.sql.gz"
   FILES_OUT_PATH="${BACKUPS_DIR}/${DB_NAME}-files-${DATE}.zip"
 
-  echo "Beginning backup for $DB_OUT_PATH"
+  echo "$(date +"%Y-%m-%d %H:%M:%S") Beginning backup for $DB_OUT_PATH"
   docker compose exec db mariadb-dump --defaults-extra-file=/host/db/db_creds.cnf "$DB_NAME" | gzip -c > "$DB_OUT_PATH"
 
-  echo "Beginning backup for $FILES_OUT_PATH"
+  echo "$(date +"%Y-%m-%d %H:%M:%S") Beginning backup for $FILES_OUT_PATH"
   docker compose exec "$INSTANCE_NAME" zip -rq - /var/lib/humhub/ > "$FILES_OUT_PATH"
 
+  echo "$(date +"%Y-%m-%d %H:%M:%S") Uploading to S3"
   /usr/local/bin/aws --profile mhai s3 cp "$DB_OUT_PATH" s3://mhai-humhub-mw-backups/
   /usr/local/bin/aws --profile mhai s3 cp "$FILES_OUT_PATH" s3://mhai-humhub-mw-files-backups/
 
   # Clean up old backups
-  ls -tp "${BACKUPS_DIR}/${DB_NAME}"*.sql.gz | grep -v '/$' | tail -n +6 | xargs -I {} rm -- {}
-  ls -tp "${BACKUPS_DIR}/${DB_NAME}"*.zip | grep -v '/$' | tail -n +6 | xargs -I {} rm -- {}
+  ls -tp "${BACKUPS_DIR}/${DB_NAME}"*.sql.gz | grep -v '/$' | tail -n +5 | xargs -I {} rm -- {}
+  ls -tp "${BACKUPS_DIR}/${DB_NAME}"*.zip | grep -v '/$' | tail -n +5 | xargs -I {} rm -- {}
 done
