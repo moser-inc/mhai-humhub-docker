@@ -6,6 +6,12 @@ The Docker package provides all the essential components for setting up your Hum
 
 See the [MHAI.md](./MHAI.md) file for more details on setup.
 
+## Running locally for development (MHAI)
+```
+docker compose build && docker compose -f docker-compose.yaml -f docker-compose.development.yaml up -d humhub_mw && docker attach mhai-humhub-docker-humhub_mw-1
+```
+
+
 ## Running on production (MHAI)
 
 ```

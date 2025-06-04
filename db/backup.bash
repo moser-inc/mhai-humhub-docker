@@ -24,8 +24,8 @@ for INSTANCE_NAME in "${INSTANCE_NAMES[@]}"; do
   docker compose exec "$INSTANCE_NAME" zip -rq - /var/lib/humhub/ > "$FILES_OUT_PATH"
 
   echo "$(date +"%Y-%m-%d %H:%M:%S") Uploading to S3"
-  /usr/local/bin/aws --profile mhai s3 cp "$DB_OUT_PATH" s3://mhai-humhub-mw-backups/
-  /usr/local/bin/aws --profile mhai s3 cp "$FILES_OUT_PATH" s3://mhai-humhub-mw-files-backups/
+  /usr/local/bin/aws --profile mhai s3 cp "$DB_OUT_PATH" "s3://mhai-humhub-mw-backups/$INSTANCE_NAME/$(basename "$DB_OUT_PATH")"
+  /usr/local/bin/aws --profile mhai s3 cp "$FILES_OUT_PATH" "s3://mhai-humhub-mw-files-backups/$INSTANCE_NAME/$(basename "$FILES_OUT_PATH")"
 
   # Clean up old backups
   ls -tp "${BACKUPS_DIR}/${DB_NAME}"*.sql.gz | grep -v '/$' | tail -n +5 | xargs -I {} rm -- {}
