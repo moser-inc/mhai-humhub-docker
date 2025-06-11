@@ -4,6 +4,7 @@ ARG HUMHUB_GIT_BRANCH="develop"
 
 RUN apt-get update && apt-get install -y \
     apache2 \
+    awscli \
     php-fpm php php-cli \
 	php-imagick php-curl php-bz2 php-gd php-intl php-mbstring php-mysql php-zip php-apcu php-xml php-ldap \
     unzip curl zip joe git npm vim \

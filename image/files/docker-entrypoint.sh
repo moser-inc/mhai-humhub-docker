@@ -16,6 +16,13 @@ rm -rf /var/lib/humhub/themes/HumHub && cp -rf /opt/humhub/themes/HumHub /var/li
 chown -R www-data:www-data /var/www/html/protected/runtime
 chown -R www-data:www-data /var/lib/humhub/*
 
+#----------------------------------------------------------------------
+# Run Migrations https://www.perplexity.ai/search/how-do-i-get-humhub-to-apply-m-ek0XWgSkR8.iObRRmEpNeg
+#----------------------------------------------------------------------
+
+cd /opt/humhub/protected
+php yii migrate/up --includeModuleMigrations=1 --interactive=0
+
 cd /var/www/html/
 
 #----------------------------------------------------------------------

@@ -6,6 +6,9 @@ x-common-env: &common-env
   HUMHUB_CONFIG__COMPONENTS__REDIS__HOSTNAME: redis
   HUMHUB_CONFIG__COMPONENTS__REDIS__PORT: 6379
   HUMHUB_CONFIG__COMPONENTS__SESSION__CLASS: yii\redis\Session
+  AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+  AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+  AWS_REGION: ${AWS_REGION}
 
 services:
   # To work with the site in development, just run this service with the docker-compose.development.yaml file included
@@ -25,6 +28,7 @@ services:
       - 8404:8404
     volumes:
       - humhub_mw_data:/var/lib/humhub
+      -
     env_file:
       - ./humhub.env
     environment:

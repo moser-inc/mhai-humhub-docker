@@ -21,13 +21,11 @@ for INSTANCE_NAME in "${INSTANCE_NAMES[@]}"; do
   docker compose exec db mariadb-dump --defaults-extra-file=/host/db/db_creds.cnf "$DB_NAME" | gzip -c > "$DB_OUT_PATH"
 
   echo "$(date +"%Y-%m-%d %H:%M:%S") Beginning backup for $FILES_OUT_PATH"
-  docker compose exec "$INSTANCE_NAME" zip -rq - /var/lib/humhub/ > "$FILES_OUT_PATH"
+  docker compose exec "$INSTANCE_NAME" aws s3 sync /var/lib/humhub/ s3://mhai-humhub-mw-files-backups/"$INSTANCE_NAME"/
 
   echo "$(date +"%Y-%m-%d %H:%M:%S") Uploading to S3"
   /usr/local/bin/aws --profile mhai s3 cp "$DB_OUT_PATH" "s3://mhai-humhub-mw-backups/$INSTANCE_NAME/$(basename "$DB_OUT_PATH")"
-  /usr/local/bin/aws --profile mhai s3 cp "$FILES_OUT_PATH" "s3://mhai-humhub-mw-files-backups/$INSTANCE_NAME/$(basename "$FILES_OUT_PATH")"
 
   # Clean up old backups
   ls -tp "${BACKUPS_DIR}/${DB_NAME}"*.sql.gz | grep -v '/$' | tail -n +5 | xargs -I {} rm -- {}
-  ls -tp "${BACKUPS_DIR}/${DB_NAME}"*.zip | grep -v '/$' | tail -n +5 | xargs -I {} rm -- {}
 done
