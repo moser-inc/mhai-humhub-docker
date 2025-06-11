@@ -28,7 +28,6 @@ services:
       - 8404:8404
     volumes:
       - humhub_mw_data:/var/lib/humhub
-      -
     env_file:
       - ./humhub.env
     environment:
