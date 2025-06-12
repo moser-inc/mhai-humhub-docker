@@ -15,6 +15,8 @@ services:
   # so that it overrides the volumes and you can access local files.
   humhub_mw:
     build:
+      args:
+        HUMHUB_GIT_BRANCH: v1.17.2
       context: ./image
 #      Still unable to get connectivity procedure with ECR working, so not using these tags just yet
 #      tags:
